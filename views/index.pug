@@ -1,0 +1,20 @@
+extends layout/layout.pug
+block content
+  h1 Hello world
+
+block header
+  header
+    nav
+      a(href="/") MyLibrary
+      ul
+        li
+          a(href="/authors") Authors
+        li
+          a(href="/authors/new") 
+            | Add Author
+
+block author
+  h2 new author
+  form(action="/authors", method="POST")
+    a(href="/authors") Cancel
+    button(type="submit") Create

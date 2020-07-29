@@ -1,0 +1,19 @@
+extends authors/new.pug
+block header
+  header
+    nav
+      a(href="/") MyLibrary
+      ul
+        li
+          a(href="/authors") Authors
+        li
+          a(href="/authors/new") 
+            | Add Author
+
+block form_field
+  label Name
+  input(type="text" name="name" value=author.name)
+
+block handle_error
+  if errorMessage
+    p= errorMessage

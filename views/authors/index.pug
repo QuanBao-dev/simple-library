@@ -1,0 +1,10 @@
+h1 Search Authors
+block header
+form(action="/authors", method="get")
+  label Name
+  input(type="text" name="name" value= searchOptions.name)
+  button(type="submit") Search
+br
+if authors
+  each author in authors
+    div= author.name
