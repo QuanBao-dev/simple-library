@@ -1,0 +1,20 @@
+extends books/index.pug
+include includes/listBooks.pug
+block header
+  include includes/header.pug
+
+block title
+  label Title
+  input(type="text" name="title" value= searchOptions.name)
+
+block publish_after
+  label Publish After
+  input(type="date" name="publishedAfter" value= searchOptions.publishedAfter)
+
+block publish_before
+  label Publish Before
+  input(type="date" name="publishedBefore" value= searchOptions.publishedBefore)
+
+block list_books
+  if books
+    +listBooks(books)(class="book-item")

@@ -25,7 +25,6 @@ router.get("/new",(req,res) => {
 })
 
 router.post("/", async(req,res) => {
-  console.log(req.body.name);
   const author = new Author({
     name:req.body.name,
   })

@@ -1,11 +1,12 @@
 extends authors/index.pug
 block header
-  header
-    nav
-      a(href="/") MyLibrary
-      ul
-        li
-          a(href="/authors") Authors
-        li
-          a(href="/authors/new") 
-            | Add Author
+  include includes/header.pug
+
+block name_input
+  label Name
+  input(type="text" name="name" value= searchOptions.name)
+
+block list_authors
+  if authors
+    each author in authors
+      div= author.name

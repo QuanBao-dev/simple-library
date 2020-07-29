@@ -14,11 +14,13 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const indexRouter = require("./routes/index");
 const authorRouter = require("./routes/authors")
+const bookRouter = require("./routes/books")
 
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use("/", indexRouter);
 app.use("/authors", authorRouter);
+app.use("/books",bookRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port} !`));
