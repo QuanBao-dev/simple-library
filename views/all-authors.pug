@@ -1,4 +1,5 @@
 extends authors/index.pug
+include includes/formMethod.pug
 block header
   include includes/header.pug
 
@@ -10,3 +11,6 @@ block list_authors
   if authors
     each author in authors
       div= author.name
+      a(href="/authors/"+author.id) View
+      a(href="/authors/"+author.id+"/edit") Edit
+      +formMethod("/authors/"+author.id+"?_method=DELETE")

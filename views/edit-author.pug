@@ -1,0 +1,12 @@
+extends authors/edit.pug
+block header
+  include includes/header.pug
+block form_field
+  form(action="/authors/"+author.id+"?_method=PUT" method="POST")
+    label Name
+    input(type= "text" value= author.name name="name")
+    a(href="/authors/"+author.id) Cancel
+    button(type="submit") update
+
+block handle_error
+  include includes/errorHandling.pug
