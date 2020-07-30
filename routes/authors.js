@@ -93,7 +93,13 @@ router.delete("/:id",async(req,res) => {
     if(!author){
       return res.redirect("/")
     };
-    res.redirect(`/authors/${author.id}`);
+    const booksByAuthor = await Book.find({author:author.id}).limit(6).exec();
+    res.render("show-author",{
+      author:author,
+      booksByAuthor:booksByAuthor,
+      errorMessage:"This author still has book"
+    });
+    // res.redirect(`/authors/${author.id}`);
   }
 })
 

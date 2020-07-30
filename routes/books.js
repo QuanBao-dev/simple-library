@@ -49,10 +49,8 @@ router.post("/", async (req, res) => {
   try {
     await book.save();
     res.redirect("/books");
-    // res.redirect(`books/${bookSave.id}`);
   } catch (error) {
-    console.error(error);
-    renderNewPage(res, new Book(), true);
+    renderFormPage(res, new Book(), "new", true);
   }
 });
 
@@ -69,7 +67,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/:id/edit", async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.id).populate("author").exec();
     renderFormPage(res, book, "edit");
   } catch (error) {
     renderFormPage(res, book, "edit", true);
@@ -82,14 +80,10 @@ router.put("/:id", async (req, res) => {
     book = await Book.findById(req.params.id);
     book.title = req.body.title;
     book.author = req.body.author;
-    if(req.body.publishDate){
-      book.publishDate = new Date(req.body.publishDate);
-    }
+    book.publishDate = new Date(req.body.publishDate);
     book.pageCount = req.body.pageCount;
     book.description = req.body.description;
-    if (req.body.cover && req.body.cover !== "") {
-      saveCover(book, req.body.cover);
-    }
+    saveCover(book, req.body.cover);
     await book.save();
     res.redirect(`/books/${book.id}`);
   } catch (error) {
