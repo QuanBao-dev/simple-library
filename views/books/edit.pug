@@ -1,7 +1,7 @@
 include ../includes/head.pug
 block header
-h2.page-header New Book
-form(action="/books" method="POST")
+h2.page-header Edit Book
+form(action="/books/"+book.id+"?_method=PUT" method="POST")
   block error_handle
   div
     block form_field
@@ -13,5 +13,5 @@ form(action="/books" method="POST")
     block cover
   div
     block description
-  a(href="/books") Cancel
-  button(type="submit") Create
+  a(href="/books/"+book.id) Cancel
+  button(type="submit") Edit

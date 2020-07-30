@@ -10,7 +10,8 @@ block name_input
 block list_authors
   if authors
     each author in authors
-      div= author.name
-      a(href="/authors/"+author.id) View
-      a(href="/authors/"+author.id+"/edit") Edit
-      +formMethod("/authors/"+author.id+"?_method=DELETE")
+      .btn-row
+        div= author.name
+        a(href="/authors/"+author.id).btn.btn-primary View
+        a(href="/authors/"+author.id+"/edit").btn.btn-primary Edit
+        +formMethod("/authors/"+author.id+"?_method=DELETE").btn.btn-danger

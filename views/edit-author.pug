@@ -2,6 +2,7 @@ extends authors/edit.pug
 block header
   include includes/header.pug
 block form_field
+  h2.page-header= author.name
   form(action="/authors/"+author.id+"?_method=PUT" method="POST")
     label Name
     input(type= "text" value= author.name name="name")

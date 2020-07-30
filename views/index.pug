@@ -4,6 +4,6 @@ block header
   include includes/header.pug
 block list_books
   div
-    h1 recently added
+    h1.page-header Recently added
     if books
       +listBooks(books)(class="book-item")

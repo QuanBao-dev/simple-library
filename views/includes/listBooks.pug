@@ -2,4 +2,5 @@ mixin listBooks(books)
   each book in books
     span&attributes(attributes)
       //- h2= book.title
-      img(src= book.coverImagePath, alt="Preview", height="150" width="100")
+      a(href="/books/"+book.id)
+        img(src= book.coverImagePath, alt="Preview", height="150" width="100")

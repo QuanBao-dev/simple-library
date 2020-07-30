@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/new", async (req, res) => {
-  renderNewPage(res, new Book());
+  renderFormPage(res, new Book(), "new");
 });
 
 router.post("/", async (req, res) => {
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
     pageCount: req.body.pageCount,
     description: req.body.description,
   });
-  saveCover(book, req.body.cover)
+  saveCover(book, req.body.cover);
   try {
     await book.save();
     res.redirect("/books");
@@ -56,28 +56,94 @@ router.post("/", async (req, res) => {
   }
 });
 
-async function renderNewPage(res, book, hasError = false) {
+router.get("/:id", async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id).populate("author").exec();
+    res.render("show-book", {
+      book: book,
+    });
+  } catch (error) {
+    res.redirect("/");
+  }
+});
+
+router.get("/:id/edit", async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    renderFormPage(res, book, "edit");
+  } catch (error) {
+    renderFormPage(res, book, "edit", true);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  let book;
+  try {
+    book = await Book.findById(req.params.id);
+    book.title = req.body.title;
+    book.author = req.body.author;
+    if(req.body.publishDate){
+      book.publishDate = new Date(req.body.publishDate);
+    }
+    book.pageCount = req.body.pageCount;
+    book.description = req.body.description;
+    if (req.body.cover && req.body.cover !== "") {
+      saveCover(book, req.body.cover);
+    }
+    await book.save();
+    res.redirect(`/books/${book.id}`);
+  } catch (error) {
+    if (book) {
+      return renderFormPage(res, book, "edit", true);
+    }
+    res.redirect("/");
+  }
+});
+
+router.delete("/:id",async(req, res) =>{
+  let book
+  try {
+    book = await Book.findById(req.params.id);
+    await book.remove();
+    res.redirect("/books")
+  } catch (error) {
+    if(book){
+      return res.render("show-book",{
+        book:book,
+        errorMessage:"Could not remove book"
+      })
+    }
+    res.redirect("/")
+  }
+})
+
+async function renderFormPage(res, book, form, hasError = false) {
   try {
     const authors = await Author.find({});
     const params = {
       authors: authors,
       book: book,
     };
-    if (hasError) params.errorMessage = "Error creating Books";
-    res.render("new-book", params);
+    if (hasError) {
+      params.errorMessage = "Error creating Books";
+      if(form === "edit"){
+        params.errorMessage = "Error editing Books"
+      }
+    }
+    res.render(`${form}-book`, params);
   } catch (error) {
     res.redirect("/books");
   }
 }
 
-function saveCover(book, coverEncoded){
-  if(!coverEncoded){
-    return
+function saveCover(book, coverEncoded) {
+  if (!coverEncoded) {
+    return;
   }
   const cover = JSON.parse(coverEncoded);
-  if(cover && imageMineTypes.includes(cover.type)){
-    book.coverImage = new Buffer.from(cover.data,"base64");
-    book.coverImageType = cover.type
+  if (cover && imageMineTypes.includes(cover.type)) {
+    book.coverImage = new Buffer.from(cover.data, "base64");
+    book.coverImageType = cover.type;
   }
 }
 

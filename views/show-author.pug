@@ -1,8 +1,10 @@
 extends authors/show.pug
 include includes/formMethod.pug
 include includes/listBooks.pug
+block header
+  include includes/header.pug
 block content
-  h2= author.name
+  h2.page-header= author.name
   a(href=author.id+"/edit") Edit
   +formMethod(`/authors/${author.id}?_method=DELETE`)
   if booksByAuthor.length > 0

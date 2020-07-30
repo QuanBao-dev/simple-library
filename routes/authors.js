@@ -78,7 +78,7 @@ router.put("/:id", async(req,res) => {
     };
     res.render('edit-author',{
       author:author,
-      errorMessage:"Error creating Author"
+      errorMessage:"Error editing Author"
     })
   }
 })

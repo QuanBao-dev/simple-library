@@ -1,5 +1,6 @@
+include ../includes/headCommon.pug
 block header
-h2 new author
+h2.page-header new author
 form(action="/authors", method="POST")
   block form_field
   a(href="/authors") Cancel
