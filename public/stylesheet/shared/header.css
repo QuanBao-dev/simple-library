@@ -23,7 +23,12 @@
   display: flex;
   list-style-type: none;
   margin:0;
+  text-align: center;
   padding:0;
+}
+
+.header-nav ul li{
+  padding:20px;
 }
 
 .header-link{
@@ -35,4 +40,9 @@
 
 .header-link:hover, .header-title:hover{
   color:white;
+}
+
+.header-selected{
+  background-color:black;
+  border-radius: 10px;
 }

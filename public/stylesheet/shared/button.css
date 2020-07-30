@@ -23,6 +23,7 @@
 .btn-primary{
   color:var(--color-btn-primary-text);
   background-color: var(--color-btn-primary-background);
+  font-size: 1.1rem;
 }
 
 .btn-primary:hover{
@@ -33,6 +34,7 @@
 .btn-danger{
   color:var(--color-btn-danger-text);
   background-color: var(--color-btn-danger-background);
+  font-size: 1rem;
 }
 
 .btn-danger:hover{
