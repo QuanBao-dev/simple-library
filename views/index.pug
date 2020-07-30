@@ -1,9 +1,10 @@
 extends layout/layout.pug
 include includes/listBooks.pug
+include includes/header.pug
 block header
-  include includes/header.pug
+  +nav()
 block list_books
   div
     h1.page-header Recently added
     if books
-      +listBooks(books)(class="book-item")
+      +listBooks(books, true)

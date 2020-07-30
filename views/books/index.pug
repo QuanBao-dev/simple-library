@@ -1,13 +1,16 @@
 include ../includes/headCommon.pug
 block header
-h1.page-header Search Books
-form(action="/books", method="get")
-  div
-    block title
-  div
-    block publish_after
-  div
-    block publish_before
-  button(type="submit") Search
-br
-block list_books
+.container
+  h1.page-header Search Books
+  form(action="/books", method="get")
+    div.form-row.form-item
+      block title
+    div.form-row
+      .form-item
+        block publish_after
+      .form-item
+        block publish_before
+    div.form-row.form-row-end
+      button(type="submit").btn.btn-primary Search
+  br
+  block list_books

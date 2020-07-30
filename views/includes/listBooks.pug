@@ -1,6 +1,7 @@
-mixin listBooks(books)
-  each book in books
-    span&attributes(attributes)
-      //- h2= book.title
+mixin listBooks(books, large)
+  - bookCoverClass = large ? "book-cover-large" : "book-cover"
+  - bookGridClass = large ? "book-grid-large" : "book-grid"
+  div.book-grid(class= bookGridClass)
+    each book in books
       a(href="/books/"+book.id)
-        img(src= book.coverImagePath, alt="Preview", height="150" width="100")
+        img.book-cover(src= book.coverImagePath, alt="Preview", class= bookCoverClass)

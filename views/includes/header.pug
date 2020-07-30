@@ -1,14 +1,15 @@
-header
-  nav.header-nav
-    a.header-title(href="/") MyLibrary
-    ul
-      li
-        a.header-link(href="/authors") Authors
-      li
-        a.header-link(href="/authors/new") 
-          | Add Author
-      li
-        a.header-link(href="/books") Books
-      li
-        a.header-link(href="/books/new") 
-          | Add Book
+mixin nav(name)
+  header
+    nav.header-nav
+      a.header-title(href="/") MyLibrary
+      ul
+        li(class= (name === "authors") ? "header-selected":"")
+          a.header-link(href="/authors") Authors
+        li(class= (name === "new-author") ? "header-selected":"")
+          a.header-link(href="/authors/new") 
+            | Add Author
+        li(class= (name === "books") ? "header-selected":"")
+          a.header-link(href="/books") Books
+        li(class= (name === "new-book") ? "header-selected":"")
+          a.header-link(href="/books/new") 
+            | Add Book

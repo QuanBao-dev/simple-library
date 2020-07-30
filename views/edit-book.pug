@@ -1,23 +1,23 @@
 extends books/edit.pug
+include includes/header.pug
 block header
-  include includes/header.pug
-  
-block form_field
-  div
-    label Title
-    input(type="text" name="title" value= book.title)
-  div
-    label Author
-    select(name="author")
-      each author in authors
-        if author.id === book.author
-          option(selected value= author.id)= author.name
-        else
-          option(value= author.id)= author.name
+  +nav("books")  
+block title
+  label Title
+  input(type="text" name="title" value= book.title)
+
+block author
+  label Author
+  select(name="author")
+    each author in authors
+      if author.id === book.author.id
+        option(selected value= author.id)= author.name
+      else
+        option(value= author.id)= author.name
 
 block publish_date
   label Publish Date
-  input(type="date" name="publishDate" value= !book.publishDate ? "": book.publishDate.toISOString())
+  input(type="date" name="publishDate" value= !book.publishDate ? "": book.publishDate.toISOString().slice(0, 10))
 
 block page_count
   label Page Count
@@ -25,7 +25,7 @@ block page_count
 
 block cover
   label Cover
-  input(type="file" name="cover" class="filepond" value= book.coverImagePath)
+  input.book-cover(type="file" name="cover" class="filepond" value= book.coverImagePath)
 
 block description
   label Description

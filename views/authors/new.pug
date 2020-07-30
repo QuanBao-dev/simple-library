@@ -1,8 +1,11 @@
 include ../includes/headCommon.pug
 block header
-h2.page-header new author
-form(action="/authors", method="POST")
-  block form_field
-  a(href="/authors") Cancel
-  button(type="submit") Create
-block handle_error
+.container
+  h2.page-header New author
+  block handle_error
+  form(action="/authors", method="POST")
+    .form-row.form-item
+      block form_field
+    .form-row.form-row-end
+      a(href="/authors").btn.btn-danger Cancel
+      button(type="submit").btn.btn-primary Create

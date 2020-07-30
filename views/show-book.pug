@@ -1,18 +1,27 @@
 extends books/show
 include includes/formMethod
+include includes/header
 block header
-  include includes/header
+  +nav("books")
 block content
   h2.page-header= book.title
-  img(src=book.coverImagePath height="150" width="100") 
-  div
-    | Author: #{book.author.name}
-  div
-    | Publish Date: #{book.publishDate.toDateString()}
-  div
-    | Page Count: #{book.pageCount}
-  div
-    | Description: #{book.description}
-  a(href="/books/"+book.id+"/edit") Edit
-  +formMethod("/books/" + book.id + "?_method=DELETE")
-  a(href="/authors/"+book.author.id) View Author
+  .book-details
+    div
+      img.book-cover(src=book.coverImagePath) 
+      .book-details-btn-grid
+        a(href="/books/"+book.id+"/edit").btn.btn-primary Edit
+        +formMethod("/books/" + book.id + "?_method=DELETE").btn.btn-danger
+        a(href="/authors/"+book.author.id).btn.btn-primary.book-details-author-button View Author
+    .book-details-grid
+      .book-details-label
+        div Author:
+      div= book.author.name
+      .book-details-label
+        div Publish Date:
+      div= book.publishDate.toDateString()
+      .book-details-label
+        div Page Count:
+      div= book.pageCount
+      .book-details-label
+        div Description:
+      div= book.description

@@ -1,8 +1,8 @@
 extends authors/index.pug
 include includes/formMethod.pug
+include includes/header.pug
 block header
-  include includes/header.pug
-
+  +nav("authors")
 block name_input
   label Name
   input(type="text" name="name" value= searchOptions.name)
@@ -10,8 +10,10 @@ block name_input
 block list_authors
   if authors
     each author in authors
-      .btn-row
-        div= author.name
-        a(href="/authors/"+author.id).btn.btn-primary View
-        a(href="/authors/"+author.id+"/edit").btn.btn-primary Edit
-        +formMethod("/authors/"+author.id+"?_method=DELETE").btn.btn-danger
+      .author-row
+        .author-name
+          div= author.name
+        .btn-row
+          a(href="/authors/"+author.id).btn.btn-primary View
+          a(href="/authors/"+author.id+"/edit").btn.btn-primary Edit
+          +formMethod("/authors/"+author.id+"?_method=DELETE").btn.btn-danger

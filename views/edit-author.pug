@@ -1,13 +1,16 @@
 extends authors/edit.pug
+include includes/header.pug
 block header
-  include includes/header.pug
+  +nav("authors")
 block form_field
   h2.page-header= author.name
   form(action="/authors/"+author.id+"?_method=PUT" method="POST")
-    label Name
-    input(type= "text" value= author.name name="name")
-    a(href="/authors/"+author.id) Cancel
-    button(type="submit") update
+    .form-row.form-item
+        label Name
+        input(type= "text" value= author.name name="name")
+    .form-row.btn-row.form-row-end
+      a(href="/authors/"+author.id).btn.btn-danger Cancel
+      button(type="submit").btn.btn-primary Update
 
 block handle_error
   include includes/errorHandling.pug

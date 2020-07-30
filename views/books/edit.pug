@@ -1,17 +1,24 @@
 include ../includes/head.pug
 block header
-h2.page-header Edit Book
-form(action="/books/"+book.id+"?_method=PUT" method="POST")
+.container
+  h2.page-header Edit Book
   block error_handle
-  div
-    block form_field
-  div
-    block publish_date
-  div
-    block page_count
-  div
-    block cover
-  div
-    block description
-  a(href="/books/"+book.id) Cancel
-  button(type="submit") Edit
+  form(action="/books/"+book.id+"?_method=PUT" method="POST")
+    .form-row
+      div.form-item
+        block title
+      div.form-item
+        block author
+    .form-row
+      div.form-item
+        block publish_date
+      div.form-item
+        block page_count
+    .form-row
+      div.form-item-no-grow
+        block cover
+      div.form-item
+        block description
+    .form-row.form-row-end
+      a(href="/books/"+book.id).btn.btn-danger Cancel
+      button(type="submit").btn.btn-primary Edit

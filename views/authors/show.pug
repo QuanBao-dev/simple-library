@@ -1,3 +1,6 @@
 include ../includes/headCommon.pug
 block header
-block content
+.container
+  h2.page-header= author.name
+  block error_handle
+  block content

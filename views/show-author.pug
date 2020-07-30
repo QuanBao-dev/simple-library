@@ -1,12 +1,15 @@
 extends authors/show.pug
 include includes/formMethod.pug
 include includes/listBooks.pug
+include includes/header.pug
 block header
-  include includes/header.pug
+  +nav("authors")
 block content
-  h2.page-header= author.name
-  a(href=author.id+"/edit") Edit
-  +formMethod(`/authors/${author.id}?_method=DELETE`)
+  .btn-row
+    a(href=author.id+"/edit").btn.btn-primary Edit
+    +formMethod(`/authors/${author.id}?_method=DELETE`).btn.btn-danger
   if booksByAuthor.length > 0
-    h2 Books By Author
-    +listBooks(booksByAuthor)(class="book-item")
+    h2.page-header Books By Author
+    +listBooks(booksByAuthor).book-row
+block error_handle
+  include includes/errorHandling.pug

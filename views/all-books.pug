@@ -1,11 +1,11 @@
 extends books/index.pug
 include includes/listBooks.pug
+include includes/header.pug
 block header
-  include includes/header.pug
-
+  +nav("books")
 block title
   label Title
-  input(type="text" name="title" value= searchOptions.name)
+  input(type="text" name="title" value= searchOptions.title)
 
 block publish_after
   label Publish After
@@ -17,4 +17,4 @@ block publish_before
 
 block list_books
   if books
-    +listBooks(books)(class="book-item")
+    +listBooks(books,true)
