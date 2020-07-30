@@ -38,19 +38,21 @@ router.get("/new", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const book = new Book({
-    title: req.body.title,
-    author: req.body.author,
-    publishDate: new Date(req.body.publishDate),
-    pageCount: req.body.pageCount,
-    description: req.body.description,
-  });
-  saveCover(book, req.body.cover);
+  let book;
   try {
+    book = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      publishDate: new Date(req.body.publishDate),
+      pageCount: req.body.pageCount,
+      description: req.body.description,
+    });
+    book = await book.populate("author").execPopulate();
+    saveCover(book, req.body.cover);
     await book.save();
     res.redirect("/books");
   } catch (error) {
-    renderFormPage(res, new Book(), "new", true);
+    renderFormPage(res, book, "new", true);
   }
 });
 

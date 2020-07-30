@@ -10,8 +10,11 @@ block author
   label Author
   select(name="author")
     each author in authors
-      if author.id === book.author
-        option(selected value= author.id)= author.name
+      if book.author 
+        if author.id === book.author.id
+          option(selected value= author.id)= author.name
+        else
+          option(value= author.id)= author.name
       else
         option(value= author.id)= author.name
 
